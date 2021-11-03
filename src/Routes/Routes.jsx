@@ -10,6 +10,7 @@ import Dashboard from '../pages/Admin/Dashboard';
 import Privatelayout from '../layout/Privatelayout';
 import Publiclayout from '../layout/Publiclayout';
 import Ventas from '../pages/Admin/Ventas';
+import Features from '../pages/Public/Features';
 
 const Routes = () => {
     return (
@@ -30,9 +31,16 @@ const Routes = () => {
                         </Switch>
                     </Privatelayout>
                 </Route>
-                <Route path='/'>
+                <Route path={['/feactures', '/']}>
                     <Publiclayout>
-                        <Index />
+                        <Switch>
+                            <Route path='/feactures'>
+                                <Features/>
+                            </Route>
+                            <Route path='/index'>
+                                <Index/>
+                            </Route>
+                        </Switch>
                     </Publiclayout>
                 </Route>
             </Switch>
