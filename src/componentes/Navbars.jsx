@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbars = () => {
-    const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
+    const {loginWithRedirect, isAuthenticated, user, logout, getAccessTokenSilently} = useAuth0();
     const [textButton, setTextButton] = useState('Login')
     const [Name, setName] = useState('')
     useEffect(() => {
@@ -16,6 +16,16 @@ const Navbars = () => {
             setName('')
         }
     }, [isAuthenticated])
+
+    useEffect(()=>{
+        const getToken = async ()=>{
+            const accessToken = await getAccessTokenSilently();
+            localStorage.setItem('token', accessToken)
+        }
+        if(isAuthenticated){
+            getToken();
+        }
+    }, [isAuthenticated, getAccessTokenSilently])
 
     return (
     <Navbar bg="dark" variant="dark">
