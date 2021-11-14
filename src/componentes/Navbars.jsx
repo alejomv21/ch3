@@ -6,12 +6,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Navbars = () => {
     const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
     const [textButton, setTextButton] = useState('Login')
-    const userName = user.name
+    const [Name, setName] = useState('')
     useEffect(() => {
         if(isAuthenticated){
             setTextButton('Logout')
+             setName(user.name)
         }else{
             setTextButton('Login')
+            setName('')
         }
     }, [isAuthenticated])
 
@@ -25,12 +27,12 @@ const Navbars = () => {
      <Nav.Link > <Link to='/feactures'>  Features </Link> </Nav.Link>
     {
         isAuthenticated ?
-        <NavDropdown title={userName} id="navbarScrollingDropdown">
+        <NavDropdown title={Name} id="navbarScrollingDropdown">
           <NavDropdown.Item ><Link to= '/dash' >Dashboard</Link></NavDropdown.Item>
-          <NavDropdown.Item >Another action</NavDropdown.Item>
+          <NavDropdown.Item ><Link to= '/ventas' >Ventas</Link></NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item >
-            Something else here
+          <Link to= '/roles' >Roles</Link>
           </NavDropdown.Item>
         </NavDropdown>:
         null
