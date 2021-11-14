@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Nav, Navbar} from 'react-bootstrap'
+import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbars = () => {
     const {loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
     const [textButton, setTextButton] = useState('Login')
-    
+    const userName = user.name
     useEffect(() => {
         if(isAuthenticated){
             setTextButton('Logout')
@@ -23,7 +23,18 @@ const Navbars = () => {
     <Nav className="me-auto">
         <Nav.Link > <Link to='/'>  Home </Link> </Nav.Link>
      <Nav.Link > <Link to='/feactures'>  Features </Link> </Nav.Link>
-
+    {
+        isAuthenticated ?
+        <NavDropdown title={userName} id="navbarScrollingDropdown">
+          <NavDropdown.Item ><Link to= '/dash' >Dashboard</Link></NavDropdown.Item>
+          <NavDropdown.Item >Another action</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item >
+            Something else here
+          </NavDropdown.Item>
+        </NavDropdown>:
+        null
+    }
     </Nav>
     </Container>
     {
